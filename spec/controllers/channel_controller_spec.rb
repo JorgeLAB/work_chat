@@ -37,7 +37,7 @@ RSpec.describe ChannelsController, type: :controller do
       it "Return right values to channel" do
         response_hash = JSON.parse(response.body)
 
-        expect(response_hash["user_id"]).to eql(@current_user.id)
+        expect(response_hash["user_id"]).to eql(@current_user.id)body
         expect(response_hash["slug"]).to eql(@channel_attributes[:slug])
         expect(response_hash["team_id"]).to eql(@team.id)
       end
