@@ -61,18 +61,18 @@ RSpec.describe TeamsController, type: :controller do
 
   describe "POST #create" do
     before(:each) do
-      team_attributes = attributes_for(:team, user: @current_user)
-      post :create, params: {team: team_attributes}
+      @team_attributes = attributes_for(:team, user: @current_user)
+      post :create, params: {team: @team_attributes}
     end
 
     it "Redirect to new team" do
       expect(response).to have_http_status(302)
-      expect(response).to redirect_to("/#{team_attributes[:slug]}")
+      expect(response).to redirect_to("/#{@team_attributes[:slug]}")
     end
 
     it "Create team with right attributes" do
       expect(Team.last.user).to eql(@current_user)
-      expect(Team.last.slug).to eql(team_attributes[:slug])
+      expect(Team.last.slug).to eql(@team_attributes[:slug])
     end
   end
 
