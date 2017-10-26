@@ -25,6 +25,13 @@ class Ability
       can :destroy, TeamUser do |t|
         t.team.user_id == user.id || t.user_id == user.id
       end
+
+      can :create, Invite do |i|
+        i.team.user_id == user.id
+      end
+      can :show, Invite do |i|
+        i.user_id == user.id
+      end
     end
   end
 end
