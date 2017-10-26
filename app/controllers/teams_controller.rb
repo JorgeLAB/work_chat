@@ -7,6 +7,7 @@ class TeamsController < ApplicationController
 
   def show
     authorize! :read, @team
+    @team_permission = @team.team_users.find_by(user: current_user)
   end
 
   def create
