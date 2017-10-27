@@ -4,13 +4,10 @@ class TeamUsersController < ApplicationController
   def create
     @team_user = TeamUser.new(team_user_params)
     authorize! :create, @team_user
-
-    respond_to do |format|
-      if @team_user.save
-        format.json { render :show, status: :created }
-      else
-        format.json { render json: @team_user.errors, status: :unprocessable_entity }
-      end
+    if @team_user.save
+      redirect_to "/#{@team_user.team.slug}", notice: "Welcome to Team!"
+    else
+      redirect_to root_path, alert: "An error ocurred when trying to accept your invite"
     end
   end
 
@@ -30,7 +27,6 @@ class TeamUsersController < ApplicationController
   end
 
   def team_user_params
-    user = User.find_by(email: params[:team_user][:email])
-    params.require(:team_user).permit(:team_id).merge(user_id: user.id)
+    params.require(:team_user).permit(:team_id).merge(user_id: current_user.id)
   end
 end
