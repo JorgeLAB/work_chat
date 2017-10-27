@@ -9,6 +9,12 @@
   </head>
 
   <body>
+    <% if notice %>
+      <script>Materialize.toast('<%= notice %> &nbsp;<b>:)</b>', 4000, 'green')</script>
+    <% elsif alert %>
+      <script>Materialize.toast('<%= alert %> &nbsp;<b>:(</b>', 4000, 'red')</script>
+    <% end %>
+
     <!-- navbar + sidebar -->
     <header>
       <%= render "shared/navbar" %>
