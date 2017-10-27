@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get '/:slug', to: 'teams#show'
 
   resources :teams, only: [:create, :destroy] do
-    resources :invites, only: [:create, :show]
+    resources :invites, only: [:create, :show, :destroy]
   end
 
   resources :channels, only: [:show, :create, :destroy]

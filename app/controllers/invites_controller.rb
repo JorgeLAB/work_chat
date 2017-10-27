@@ -1,5 +1,5 @@
 class InvitesController < ApplicationController
-  before_action :load_invite, only: :show
+  before_action :load_invite, only: [:show, :destroy]
 
   def create
     team = Team.find(params[:team_id])
@@ -12,6 +12,19 @@ class InvitesController < ApplicationController
 
   def show
     authorize! :show, @invite
+    if @invite.expired?
+      redirect_to root_path, alert: "This invite is expired"
+    end
+  end
+
+
+  def destroy
+    if @invite.destroy
+      flash[:notice] = "Invite was denied"
+    else
+      flash[:alert] = "An error ocurred when try to deny invite"
+    end
+    redirect_to root_path
   end
 
 
@@ -39,6 +52,6 @@ class InvitesController < ApplicationController
 
 
   def load_invite
-    Invite.find(params[:id])
+    @invite = Invite.find(params[:id])
   end
 end
