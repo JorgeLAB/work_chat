@@ -1,0 +1,6 @@
+<h4>Your invite for team <%= @invite.team.slug %></h4>
+
+<%= link_to "Accept", "#{team_users_path}?team_user[team_id]=#{@invite.team_id}",
+            class: "btn green", data: { method: :post } %>
+
+<%= link_to "Deny", [@invite.team, @invite], class: "btn red", data: { method: :delete } %>
