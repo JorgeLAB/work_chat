@@ -33,6 +33,7 @@ window.open = (id, type) ->
           set_chat(data['slug'])
 
         window.change_chat(id, type, $(".team_id").val())
+        window.unhighlight_chat(type, id)
 
         if(data['messages'])
           for message in data['messages']
@@ -42,8 +43,6 @@ window.open = (id, type) ->
         Materialize.toast('Problem to get ' + type + ' informations &nbsp;<b>:(</b>', 4000, 'red')
 
     return false
-
-
 
 
 window.add = (slug, id, type) ->
@@ -58,3 +57,11 @@ window.add = (slug, id, type) ->
                                     '</a>' +
                                 '</div>' +
                             '</li>')
+
+
+window.highlight_chat = (type, id) ->
+  $("a[data-" +type+ "=" +id+ "] span").addClass("red-text text-darken-3")
+
+
+window.unhighlight_chat = (type, id) ->
+  $("a[data-" +type+ "=" +id+ "] span").removeClass("red-text text-darken-3")

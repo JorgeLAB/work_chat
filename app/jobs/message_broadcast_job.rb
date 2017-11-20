@@ -9,5 +9,9 @@ class MessageBroadcastJob < ApplicationJob
                                           date: message.created_at.strftime("%d/%m/%y"),
                                           name: message.user.name
                                         })
+    ActionCable.server.broadcast("monitor_chat_team_#{m.team.id}", {
+                                          type: m.class.to_s.underscore + "s",
+                                          id: m.id
+                                        })
   end
 end
